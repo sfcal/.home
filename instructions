@@ -1,0 +1,1 @@
+stow -v -t ~/$(target) {folders to link}
