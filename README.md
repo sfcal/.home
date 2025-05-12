@@ -4,7 +4,7 @@ Read for inspiration
 
 ## Dependencies
 
-`apt install fzf stow make ripgrep pandoc poppler-utils ffmpeg`
+`apt install zsh fzf stow make ripgrep pandoc poppler-utils ffmpeg`
 
 ## Deploying
 
