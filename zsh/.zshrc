@@ -50,7 +50,7 @@ fifa() {
         local filename=$(basename "$file")
         local name="${filename%.*}"
         local extension="${file##*.}"
-        local extract_dir="extracts"
+        local extract_dir="/tmp/extracts"  # Changed from "extracts" to "/tmp/extracts"
 
         if [[ ! -e "$extract_dir/$name" ]]; then
             mkdir -p "$extract_dir"
@@ -68,8 +68,8 @@ fifa() {
         fi
 
         echo "Opening $filename"
-        if [[ -e "$PWD/$extract_dir/$name" ]]; then
-            code "$PWD/$extract_dir/$name"
+        if [[ -e "$extract_dir/$name" ]]; then
+            code "$extract_dir/$name"  # Changed from "$PWD/$extract_dir/$name" to "$extract_dir/$name"
         else
             code "$file"
         fi
