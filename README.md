@@ -4,7 +4,7 @@ Read for inspiration
 
 ## Dependencies
 
-`apt install fzf stow make ripgrep pandoc poppler-utils ffmpeg`
+`apt install zsh fzf stow make ripgrep pandoc poppler-utils ffmpeg`
 
 ## Deploying
 
@@ -12,4 +12,5 @@ Read for inspiration
 git clone --recurse-submodules git@github.com:sfcal/.home.git ~/.home
 cd ~/.home
 make
+chsh -s /usr/bin/zsh
 ```
