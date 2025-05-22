@@ -76,15 +76,20 @@ fifa() {
     fi
 }
 
-homelab() {
-  docker run -it --rm \
-    --network host \
-    -v "$HOME/.ssh:/home/devops/.ssh" \
-    -v "$HOME/.kube:/home/devops/.kube" \
-    -v "$PWD:/workspace" \
-    -v "$HOME/.home:/home/devops/.home" \
-    -v "$HOME/homelab:/home/devops/homelab" \
-    -v "$HOME/.gitconfig:/home/devops/.gitconfig" \
-    -e ENV=dev \
-    homelab-exe "$@"
+hl() {
+    # If no arguments provided, show help
+    if [ "$#" -eq 0 ]; then
+        docker run --rm homelab-exe
+        return 0
+    fi
+
+    docker run --rm \
+        --network host \
+        -v "$HOME/.ssh:/home/devops/.ssh" \
+        -v "$HOME/.kube:/home/devops/.kube" \
+        -v "$PWD:/workspace" \
+        -v "$HOME/.home:/home/devops/.home" \
+        -v "$HOME/.gitconfig:/home/devops/.gitconfig" \
+        -e ENV="${ENV:-dev}" \
+        homelab-exe "$@"
 }
