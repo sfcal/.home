@@ -78,6 +78,7 @@ fifa() {
 
 homelab() {
   docker run -it --rm \
+    --network host \
     -v "$HOME/.ssh:/home/devops/.ssh" \
     -v "$HOME/.kube:/home/devops/.kube" \
     -v "$PWD:/workspace" \
