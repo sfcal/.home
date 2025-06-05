@@ -91,6 +91,7 @@ hl() {
         -v "$HOME/.home:/home/devops/.home" \
         -v "$HOME/.gitconfig:/home/devops/.gitconfig" \
         -e ENV="${ENV:-dev}" \
+        -e SOPS_AGE_KEY_FILE="/home/devops/.config/sops/age/keys.txt" \
         homelab-exe "$@"
 }
 
@@ -99,3 +100,5 @@ hl() {
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
