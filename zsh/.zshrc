@@ -102,3 +102,18 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
+
+# Function to load 1Password secrets from ~/.env.1password
+# 
+# export GITHUB_TOKEN="op://Personal/GitHub/token"
+# export SOPS_AGE_KEY="op://Personal/SOPS/age-key"
+#
+#
+ops() {
+    if [[ -f "$HOME/.env.1password" ]]; then
+        # Start a new shell with injected secrets
+        op run --env-file="$HOME/.env.1password" -- $SHELL
+    else
+        echo "No .env.1password file found"
+    fi
+}
