@@ -90,6 +90,7 @@ hl() {
         -v "$PWD:/workspace" \
         -v "$HOME/.home:/home/devops/.home" \
         -v "$HOME/.gitconfig:/home/devops/.gitconfig" \
+	-v "$HOME/.config/sops/age/keys.txt:/home/devops/.config/sops/age/keys.txt" \
         -e ENV="${ENV:-dev}" \
         -e SOPS_AGE_KEY_FILE="/home/devops/.config/sops/age/keys.txt" \
         homelab-exe "$@"
