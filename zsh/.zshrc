@@ -90,19 +90,20 @@ hl() {
         -v "$PWD:/workspace" \
         -v "$HOME/.home:/home/devops/.home" \
         -v "$HOME/.gitconfig:/home/devops/.gitconfig" \
-	-v "$HOME/.config/sops/age/keys.txt:/home/devops/.config/sops/age/keys.txt" \
+	    -v "$HOME/.config/sops/age/keys.txt:/home/devops/.config/sops/age/keys.txt" \
         -e ENV="${ENV:-dev}" \
         -e SOPS_AGE_KEY_FILE="/home/devops/.config/sops/age/keys.txt" \
         homelab-exe "$@"
 }
 
-. "$HOME/.local/bin/env"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
+
+export KUBECONFIG=~/.kube/configs/dev.yaml:~/.kube/configs/prod.yaml
 
 # Function to load 1Password secrets from ~/.env.1password
 # 
