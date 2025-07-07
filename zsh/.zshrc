@@ -105,17 +105,7 @@ export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
 
 export KUBECONFIG=~/.kube/configs/dev.yaml:~/.kube/configs/prod.yaml
 
-# Function to load 1Password secrets from ~/.env.1password
-# 
-# export GITHUB_TOKEN="op://Personal/GitHub/token"
-# export SOPS_AGE_KEY="op://Personal/SOPS/age-key"
-#
-#
-ops() {
-    if [[ -f "$HOME/.env.1password" ]]; then
-        # Start a new shell with injected secrets
-        op run --env-file="$HOME/.env.1password" -- $SHELL
-    else
-        echo "No .env.1password file found"
-    fi
-}
+alias fd="fdfind"
+
+# For zoxide
+eval "$(zoxide init zsh)"
