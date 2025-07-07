@@ -1,8 +1,9 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-
-# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
+export KUBECONFIG=~/.kube/configs/dev.yaml:~/.kube/configs/prod.yaml
 
 ZSH_THEME="robbyrussell"
 plugins=(git 1password fluxcd fzf kubectl)
@@ -11,15 +12,10 @@ source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Alias
+alias fd="fdfind"
 
 # Functions
-
-# Find In File, using RipGrep and fzf
 fif() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
   rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
@@ -50,7 +46,7 @@ fifa() {
         local filename=$(basename "$file")
         local name="${filename%.*}"
         local extension="${file##*.}"
-        local extract_dir="/tmp/extracts"  # Changed from "extracts" to "/tmp/extracts"
+        local extract_dir="/tmp/extracts"
 
         if [[ ! -e "$extract_dir/$name" ]]; then
             mkdir -p "$extract_dir"
@@ -69,7 +65,7 @@ fifa() {
 
         echo "Opening $filename"
         if [[ -e "$extract_dir/$name" ]]; then
-            code "$extract_dir/$name"  # Changed from "$PWD/$extract_dir/$name" to "$extract_dir/$name"
+            code "$extract_dir/$name"
         else
             code "$file"
         fi
@@ -77,13 +73,7 @@ fifa() {
 }
 
 hl() {
-    # If no arguments provided, show help
-    if [ "$#" -eq 0 ]; then
-        docker run --rm homelab-exe
-        return 0
-    fi
-
-    docker run --rm \
+ docker run --rm \
         --network host \
         -v "$HOME/.ssh:/home/devops/.ssh" \
         -v "$HOME/.kube:/home/devops/.kube" \
@@ -95,17 +85,6 @@ hl() {
         -e SOPS_AGE_KEY_FILE="/home/devops/.config/sops/age/keys.txt" \
         homelab-exe "$@"
 }
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
-
-export KUBECONFIG=~/.kube/configs/dev.yaml:~/.kube/configs/prod.yaml
-
-alias fd="fdfind"
 
 # For zoxide
 eval "$(zoxide init zsh)"
