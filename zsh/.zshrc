@@ -14,6 +14,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Alias
 alias fd="fdfind"
+alias flush-dns="sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder && echo 'DNS cache flushed'"
 
 # Functions
 fif() {
@@ -88,3 +89,4 @@ hl() {
 
 # For zoxide
 eval "$(zoxide init zsh)"
+. "$HOME/.local/bin/env"
